@@ -1,0 +1,7 @@
+可能遇到的问题：
+1、关于出现一些与servlet、jsp相关的异常ClassNotFoundException时，那就需要检查一下pom.xml的配置了，由于idea针对scope为provided时，不会将该依赖 添加到classpath中
+
+2、hibernate出现在进行crud时，出现xxx s not valid without active transaction问题，这里需要了解一下hibernate4如何操作数据库，不同与hibernate3,那时候是借助HibernateDaoSupport
+  通过hibernateTemplate来操作数据库，现在则需要我们通过SessionFactory的openSession(),getCurrentSession(),这时需要了解两个获取session方法的差异来进行调整
+
+3、
