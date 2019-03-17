@@ -20,6 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ResponseBody
     @RequestMapping("/getUsers")
     public List<User> getUsers(){
         return userService.getUsers();
@@ -31,11 +32,13 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    @ResponseBody
     @RequestMapping("/saveUser")
     public User saveUser(User user){
         return userService.saveUser(user);
     }
 
+    @ResponseBody
     @RequestMapping("removeUser")
     public void removeUser(@RequestParam String id){
         userService.removeUser(id);
