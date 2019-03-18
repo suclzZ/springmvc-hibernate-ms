@@ -1,6 +1,7 @@
 package com.sucl.shms.core.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -16,4 +17,18 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @RequestMapping("/logout")
+    public void logout(){
+
+    }
+
+    @RequestMapping(value = "/page/{page}")
+    public String pageRoute(@PathVariable("page") String page){
+        return page;
+    }
 }

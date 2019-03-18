@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author sucl
@@ -26,6 +27,13 @@ public class User implements Domain {
     @JoinColumn(name = "AGENCY_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Agency agency;
+
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    @JoinTable (//被维护方可以不要此注解
+            name = "USER_ROLE" , //关联表名
+            joinColumns = @JoinColumn (name = "USER_ID" ),//维护方
+            inverseJoinColumns = @JoinColumn (name = "ROLE_ID" ))//被维护方
+    private Set<Role> roles;
 
     @Column(name = "LOGIN_NAME",length = 56)
     private String loginName;
