@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -31,7 +32,7 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return CollectionUtils.class.isAssignableFrom(parameter.getParameterType())
+        return Collection.class.isAssignableFrom(parameter.getParameterType())
                 && parameter.hasParameterAnnotation(QueryCondition.class);
     }
 
@@ -56,7 +57,7 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
     private void validateCondition(Collection<Condition> conditions, Set<String> fields) {
         Iterator<Condition> it = conditions.iterator();
         while (it.hasNext()){
-            if(!fields.contains(it.next())){
+            if(!fields.contains(it.next().getProperty())){
                 it.remove();
             }
         }
@@ -79,7 +80,7 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
             for(Map.Entry<String,String[]> entry : parameterMap.entrySet()){
                 String[] vs = entry.getValue();
                 String value = vs!=null&&vs.length>0?vs[0]:null;
-                parameters.put(entry.getKey(),value);
+                parameters.put(StringUtils.trim(entry.getKey()),value);
             }
         }
         return parameters;
@@ -109,8 +110,8 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
 
         public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException{
             String fieldName = field.getName();
-            Id tableId = field.getAnnotation(Id.class);
-            if (tableId!=null) {
+            Column tableColumn = field.getAnnotation(Column.class);
+            if (tableColumn!=null) {
                 this.fieldNames.add(this.prefix + fieldName);
             }else {
                 Class fieldClass = field.getType();

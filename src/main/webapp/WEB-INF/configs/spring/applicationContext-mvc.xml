@@ -31,20 +31,17 @@
     </bean>
 
     <!-- 配置统一异常 -->
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->
-        <property name="exceptionAttribute" value="ex" />
-        <!-- 为所有的异常定义默认的异常处理页面，exceptionMappings未定义的异常使用本默认配置 -->
-        <property name="defaultErrorView" value="error" />
-        <!--
-    　　　　定义需要特殊处理的异常，用类名或完全路径名作为key，异常页文件名作为值，
-    　　　　将不同的异常映射到不同的页面上。
-    　　  -->
-        <property name="exceptionMappings">
-            <props>
-                <prop key="busException">page/error</prop>
-            </props>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+        <!--&lt;!&ndash; 定义异常处理页面用来获取异常信息的变量名，默认名为exception &ndash;&gt;-->
+        <!--<property name="exceptionAttribute" value="ex" />-->
+        <!--&lt;!&ndash; 为所有的异常定义默认的异常处理页面，exceptionMappings未定义的异常使用本默认配置 &ndash;&gt;-->
+        <!--<property name="defaultErrorView" value="error" />-->
+        <!--&lt;!&ndash;定义需要特殊处理的异常，用类名或完全路径名作为key，异常页文件名作为页面 &ndash;&gt;-->
+        <!--<property name="exceptionMappings">-->
+            <!--<props>-->
+                <!--<prop key="busException">page/error</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 </beans>
