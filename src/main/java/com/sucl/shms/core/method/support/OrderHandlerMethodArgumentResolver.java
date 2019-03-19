@@ -17,7 +17,7 @@ import java.util.*;
 public class OrderHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return CollectionUtils.class.isAssignableFrom(parameter.getParameterType()) && 
+        return Collection.class.isAssignableFrom(parameter.getParameterType()) &&
                 parameter.hasParameterAnnotation(QueryOrder.class);
     }
 

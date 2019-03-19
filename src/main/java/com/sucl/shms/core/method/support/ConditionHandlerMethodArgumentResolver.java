@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -31,7 +32,7 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return CollectionUtils.class.isAssignableFrom(parameter.getParameterType())
+        return Collection.class.isAssignableFrom(parameter.getParameterType())
                 && parameter.hasParameterAnnotation(QueryCondition.class);
     }
 
@@ -109,8 +110,8 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
 
         public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException{
             String fieldName = field.getName();
-            Id tableId = field.getAnnotation(Id.class);
-            if (tableId!=null) {
+            Column tableColumn = field.getAnnotation(Column.class);
+            if (tableColumn!=null) {
                 this.fieldNames.add(this.prefix + fieldName);
             }else {
                 Class fieldClass = field.getType();
