@@ -115,6 +115,10 @@
     </div>
     <script src="<%=request.getContextPath()%>/resources/layui.all.js"></script>
     <script>
+        layui.use('element','table','from','layer','$','laydate',function(){
+
+        });
+
       var element = layui.element;
       var table = layui.table,
           form = layui.form,
