@@ -1,5 +1,6 @@
 package com.sucl.shms.system.service.impl;
 
+import com.sucl.shms.core.exception.BusException;
 import com.sucl.shms.core.orm.Condition;
 import com.sucl.shms.core.orm.Order;
 import com.sucl.shms.core.orm.Pager;

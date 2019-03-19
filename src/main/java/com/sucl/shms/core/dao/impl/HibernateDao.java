@@ -27,6 +27,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
+ * dao公共实现方法
+ *
  * session:
  *  sessionFactory.getCurrentSession();
  *  从当前线程中获取session，如果不存在则创建并放入线程。session关闭依赖事务，需要指定事务某事thread|jta
@@ -40,7 +42,6 @@ import java.util.*;
  *  saveOrupdate: save(),update()
  *  merge: 先select然后update，同saveOrupdate。同时针对游离态、临时态数据进行持久化，使用merge
  *  delete: 持久化转变游离态
- *
  *
  * @author sucl
  * @since 2019/3/16

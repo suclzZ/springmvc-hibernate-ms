@@ -15,7 +15,8 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "USER")
-@JsonIgnoreProperties({"password"})
+//处理序列号异常
+@JsonIgnoreProperties({"password","hibernateLazyInitializer", "handler"})
 public class User implements Domain {
 
     @Id
@@ -28,7 +29,7 @@ public class User implements Domain {
     @ManyToOne(fetch = FetchType.LAZY)
     private Agency agency;
 
-    @ManyToMany(cascade = CascadeType.REFRESH)
+    @ManyToMany(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     @JoinTable (//被维护方可以不要此注解
             name = "USER_ROLE" , //关联表名
             joinColumns = @JoinColumn (name = "USER_ID" ),//维护方

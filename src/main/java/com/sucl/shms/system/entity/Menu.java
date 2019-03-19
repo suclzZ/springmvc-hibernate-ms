@@ -1,5 +1,6 @@
 package com.sucl.shms.system.entity;
 
+import com.sucl.shms.core.orm.Domain;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "MENU")
-public class Menu {
+public class Menu implements Domain {
 
     @Id
     @Column(name = "MENU_ID",length = 36)

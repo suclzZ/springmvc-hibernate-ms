@@ -1,5 +1,6 @@
 package com.sucl.shms.system.entity;
 
+import com.sucl.shms.core.orm.Domain;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "ROLE")
-public class Role {
+public class Role implements Domain {
 
     @Id
     @Column(name = "ROLE_ID",length = 24)

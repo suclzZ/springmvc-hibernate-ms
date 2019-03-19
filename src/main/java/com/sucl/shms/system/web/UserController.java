@@ -1,5 +1,6 @@
 package com.sucl.shms.system.web;
 
+import com.sucl.shms.core.exception.BusException;
 import com.sucl.shms.core.orm.Condition;
 import com.sucl.shms.core.orm.Order;
 import com.sucl.shms.core.orm.Pager;
@@ -35,7 +36,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/getUser")
-    public User getUser(@RequestParam String id){
+    public User getUser(@RequestParam String id) throws BusException {
         return userService.getUser(id);
     }
 
