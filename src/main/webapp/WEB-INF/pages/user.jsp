@@ -151,8 +151,8 @@
           ,dataName: 'records' //规定数据列表的字段名称，默认：data
         }
         ,cols: [[ //标题栏
-          {field: 'userId', title: 'ID', width: 80, sort: true}
-          ,{field: 'loginName', title: '登录名', width: 100}
+          {field: 'userId', title: 'ID', width: 80, hide: true}
+          ,{field: 'loginName', title: '登录名', width: 100,sort:true}
           ,{field: 'userCaption', title: '用户名', minWidth: 120}
           ,{field: 'birthday', title: '生日', minWidth: 100}
           ,{field: 'telephone', title: '电话', minWidth: 100}
