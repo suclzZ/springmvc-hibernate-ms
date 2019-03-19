@@ -9,7 +9,6 @@ import com.sucl.shms.core.orm.hibernate.HibernateCondition;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -57,7 +55,7 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
     private void validateCondition(Collection<Condition> conditions, Set<String> fields) {
         Iterator<Condition> it = conditions.iterator();
         while (it.hasNext()){
-            if(!fields.contains(it.next())){
+            if(!fields.contains(it.next().getProperty())){
                 it.remove();
             }
         }
@@ -80,7 +78,7 @@ public class ConditionHandlerMethodArgumentResolver implements HandlerMethodArgu
             for(Map.Entry<String,String[]> entry : parameterMap.entrySet()){
                 String[] vs = entry.getValue();
                 String value = vs!=null&&vs.length>0?vs[0]:null;
-                parameters.put(entry.getKey(),value);
+                parameters.put(StringUtils.trim(entry.getKey()),value);
             }
         }
         return parameters;

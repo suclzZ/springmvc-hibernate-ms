@@ -8,7 +8,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import java.util.Collection;
 import java.util.Objects;
 
 public class PageHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {

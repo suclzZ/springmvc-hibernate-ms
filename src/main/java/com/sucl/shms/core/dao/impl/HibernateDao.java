@@ -88,7 +88,8 @@ public abstract class HibernateDao<T,PK extends Serializable> implements Dao<T,P
         criteria = (Criteria)result[0];
         if (pageType == 0 || pageType == 2) {//查总数
             try {
-                totalCount = ((Integer)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+                Object res = criteria.setProjection(Projections.rowCount()).uniqueResult();
+                totalCount = Integer.valueOf(res.toString()).intValue();
             }catch (RuntimeException localRuntimeException) {
             }
             criteria.setProjection(null);
