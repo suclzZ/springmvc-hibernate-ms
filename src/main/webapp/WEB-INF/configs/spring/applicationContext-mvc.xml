@@ -30,13 +30,14 @@
     </mvc:annotation-driven>
 
     <!--静态资源处理-->
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"/>
+
     <mvc:default-servlet-handler/>
-    <!--<mvc:resources mapping="/resources/**" location="/WEB-INF/resources"/>-->
 
     <!-- 视图解析器 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="WEB-INF/pages/"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 

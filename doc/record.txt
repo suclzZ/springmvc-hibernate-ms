@@ -1,10 +1,12 @@
-可能遇到的问题：
+********************
+可见问题
+********************
 1、关于出现一些与servlet、jsp相关的异常ClassNotFoundException时，那就需要检查一下pom.xml的配置了，由于idea针对scope为provided时，不会将该依赖 添加到classpath中。
 
 2、hibernate出现在进行crud时，出现xxx s not valid without active transaction问题，这里需要了解一下hibernate4如何操作数据库，不同与hibernate3,那时候是借助HibernateDaoSupport
   通过hibernateTemplate来操作数据库，现在则需要我们通过SessionFactory的openSession(),getCurrentSession(),这时需要了解两个获取session方法的差异来进行调整。
 
-3、出现序列化xxx[handler]问题则是由于代理对象中会多出一些属性，需要在实体加上@JsonIgnoreProperties({hibernateLazyInitializer", "handler"})。
+3、出现序列化Could not write content: No serializer found for class org.hibernate.proxy.pojo.javassist.JavassistL...[handler]问题则是由于代理对象中会多出一些属性，需要在实体加上@JsonIgnoreProperties({hibernateLazyInitializer", "handler"})。
 
 4、出现no session问题则是由于没有配置open session in view，可通过过滤器或拦截器处理。
 
@@ -13,5 +15,8 @@
 6、由于所有接口目前都是返回json数据，而非指向页面，此时如果返回的结果刚好是数据库实体，则关联对象中 的FetchType.LAZY将失效，因为@ResponseBody对实体序列化是相当于
   调用了get方法，进而触发获取延迟加载的数据。
 
-遗留问题：
-1、
+
+-------------------
+遗留问题
+------------------
+  1、

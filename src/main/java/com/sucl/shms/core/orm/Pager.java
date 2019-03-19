@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Pager<T> {
+    private int code = 200;//前端必须 没办法
 
     private static int DEFALUT_PAGEINDEX = 1;
     public static int DEFALUT_PAGESIZE = 15;

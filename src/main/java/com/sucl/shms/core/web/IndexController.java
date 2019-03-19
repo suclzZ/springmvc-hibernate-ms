@@ -1,8 +1,12 @@
 package com.sucl.shms.core.web;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.activation.MimeType;
 
 /**
  * @author sucl
@@ -23,12 +27,18 @@ public class IndexController {
     }
 
     @RequestMapping("/logout")
-    public void logout(){
-
+    public String logout(){
+        return "login";
     }
 
-    @RequestMapping(value = "/page/{page}")
-    public String pageRoute(@PathVariable("page") String page){
+    /**
+     * 前端页面路由
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/page/{page}",produces = {MediaType.TEXT_HTML_VALUE})
+    public String pageRoute(@PathVariable("page") String page, Model model){
+        model.addAttribute("user","admin");
         return page;
     }
 }

@@ -1,16 +1,33 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: DELL
-  Date: 2019/3/16
-  Time: 21:09
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/layui.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/login.css">
+    <link rel="icon" href="/favicon.ico">
+    <title>管理后台</title>
 </head>
-<body>
-
-</body>
+    <body class="login-wrap">
+    <div class="login-container">
+        <form class="login-form">
+            <div class="input-group">
+                <input type="text" id="username" class="input-field">
+                <label for="username" class="input-label">
+                    <span class="label-title">用户名</span>
+                </label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" class="input-field">
+                <label for="password" class="input-label">
+                    <span class="label-title">密码</span>
+                </label>
+            </div>
+            <a href="index"><button type="button" class="login-button">登录<i class="ai ai-enter"></i></button></a>
+        </form>
+    </div>
+    <script src="<%=request.getContextPath()%>/resources/layui.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/index.js" data-main="login"></script>
+    </body>
 </html>
