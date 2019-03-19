@@ -11,7 +11,7 @@
 </head>
 <body class="layui-view-body">
     <div class="layui-content">
-        <div class="layui-page-header hidden">
+        <div class="layui-page-header layui-hide">
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a href="">首页</a>
@@ -21,55 +21,55 @@
                 <h2 class="title">用户管理</h2>
             </div>
         </div>
-        <div id="form_add" class="layui-card hidden">
+        <div id="form_add" class="layui-card" style="display: none">
             <%--<div class="layui-card-header">表单</div>--%>
-            <form class="layui-form layui-card-body" action="">
+            <form class="layui-form layui-card-body" action="" lay-filter="form_add">
                 <div class="layui-form-item">
                     <label class="layui-form-label">登录名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="loginName" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="userCaption" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">生日</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input layui-date">
+                        <input type="text" name="birthday" required  lay-verify="date" placeholder="请输入" autocomplete="off" class="layui-input layui-date">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">电话号码</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="telephone" required  lay-verify="phone" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">电子邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" required  lay-verify="email" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">QQ</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="qq" required  placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">微信</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="weixin" required  placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">机构</label>
                     <div class="layui-input-block">
-                        <select name="city" lay-verify="required">
+                        <select name="agency.agencyId">
                             <option value=""></option>
                             <option value="0">北京</option>
                             <option value="1">上海</option>
@@ -82,8 +82,12 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">描述</label>
                     <div class="layui-input-block">
-                        <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        <textarea name="description" placeholder="请输入内容" class="layui-textarea"></textarea>
                     </div>
+                </div>
+                <div class="layui-input-block layui-hide">
+                    <button id="btn_form_add_submit" class="layui-btn" lay-submit lay-filter="form_submit">立即提交</button>
+                    <button id="btn_form_add_reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </form>
         </div>
@@ -115,9 +119,9 @@
     </div>
     <script src="<%=request.getContextPath()%>/resources/layui.all.js"></script>
     <script>
-        layui.use('element','table','from','layer','$','laydate',function(){
-
-        });
+        // layui.use('element','table','from','layer','$','laydate',function(){
+        //
+        // });
 
       var element = layui.element;
       var table = layui.table,
@@ -163,9 +167,20 @@
         // ,limit: 15 //每页默认显示的数量
       });
 
-      $('#form_add').on('submit(*)',function (data) {
-          alert(1)
+      //提交按钮监听
+      form.on('submit(form_submit)',function (data) {
+          debugger
+          $.ajax({
+              url:'<%=request.getContextPath()%>/user/saveUser',
+              method:'POST',
+              data:data.field,
+              contentType: "application/x-www-form-urlencoded",
+              success:function(res){
+                  layer.alert('提交成功！');
+              }
+          })
       });
+      //form.render(null, 'test1'); // 重置
 
       //表单填值
       // form.val("formTest", { //filtter
@@ -185,14 +200,15 @@
               offset: 'auto',
               title:'新增用户',
               content:$('#form_add'),
-              btn:['提交','取消'],
+              btn:['提交','重置','取消'],
               yes :function(){
-                  $('#form_add').submit(function (data) {
-                      console.info(data)
-                  });
+                  $('#btn_form_add_submit').click();
               },
               btn2:function () {
-                  alert('cancle')
+                  form.render(null, 'form_add');
+              },
+              btn3:function () {
+
               }
           })
       });

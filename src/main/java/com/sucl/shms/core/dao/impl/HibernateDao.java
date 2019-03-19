@@ -267,7 +267,8 @@ public abstract class HibernateDao<T,PK extends Serializable> implements Dao<T,P
 
     @Override
     public T save(T t) {
-        return (T)getSession().merge(t);
+        getSession().save(t);
+        return t;
     }
 
     @Override

@@ -2,10 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 扫描指定包下的spring注解，完成bean的注册 -->
@@ -41,7 +43,7 @@
         <!-- 连接池最大数量 -->
         <property name="maxActive" value="${jdbc.maxActive}"></property>
         <!-- 连接池最大空闲 -->
-        <property name="maxIdle" value="${jdbc.maxIdle}"></property>
+        <!--<property name="maxIdle" value="${jdbc.maxIdle}"></property>-->
         <!-- 连接池最小空闲 -->
         <property name="minIdle" value="${jdbc.minIdle}"></property>
         <!-- 获取连接最大等待时间 -->
@@ -85,4 +87,28 @@
 
     <!-- @Transcational注解 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!--<tx:advice id="transactionAdvice" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="add*" />-->
+            <!--&lt;!&ndash; save这里设置了事务回滚的异常，不用抛RuntimeException异常，抛出SQLException也可以回滚&ndash;&gt;-->
+            <!--<tx:method name="save*" rollback-for="SQLException"/>-->
+            <!--<tx:method name="update*" />-->
+            <!--<tx:method name="modify*" />-->
+            <!--<tx:method name="edit*" />-->
+            <!--<tx:method name="delete*" />-->
+            <!--<tx:method name="remove*" />-->
+            <!--<tx:method name="repair" />-->
+
+            <!--<tx:method name="get*" propagation="SUPPORTS" />-->
+            <!--<tx:method name="find*" propagation="SUPPORTS" />-->
+            <!--<tx:method name="load*" propagation="SUPPORTS" />-->
+            <!--<tx:method name="search*" propagation="SUPPORTS" />-->
+            <!--<tx:method name="*" propagation="SUPPORTS" />-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="transactionPointcut" expression="execution(* com..service.impl.*ServiceImpl.*(..))" />-->
+        <!--<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />-->
+    <!--</aop:config>-->
 </beans>

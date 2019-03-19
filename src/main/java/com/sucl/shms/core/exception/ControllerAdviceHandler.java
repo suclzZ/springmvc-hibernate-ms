@@ -20,6 +20,7 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public String exception(Exception ex){
+        ex.printStackTrace();
         return ex.getMessage();
     }
 

@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <div class="layui-footer hidden">
+        <div class="layui-footer layui-hide">
             <p></p>
         </div>
 
