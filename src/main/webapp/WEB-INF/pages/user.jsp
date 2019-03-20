@@ -6,91 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/layui.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/view.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/asserts/ztree/css/metroStyle/metroStyle.css">
     <link rel="icon" href="/favicon.ico">
     <title>管理后台</title>
 </head>
+
 <body class="layui-view-body">
-    <div class="layui-content">
-        <div class="layui-page-header layui-hide">
-            <div class="pagewrap">
-                <span class="layui-breadcrumb">
-                  <a href="">首页</a>
-                  <a href="">用户</a>
-                  <a><cite>用户管理</cite></a>
-                </span>
-                <h2 class="title">用户管理</h2>
+    <div id="form_add" class="layui-card" style="display: none">
+    <%--<div class="layui-card-header">表单</div>--%>
+    <form class="layui-form layui-card-body" lay-filter="form_add">
+        <div class="layui-form-item layui-hide">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="userId" placeholder="请输入" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div id="form_add" class="layui-card" style="display: none">
-            <%--<div class="layui-card-header">表单</div>--%>
-            <form class="layui-form layui-card-body" action="" lay-filter="form_add">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">登录名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="loginName" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">用户名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="userCaption" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">生日</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="birthday" required  lay-verify="date" placeholder="请输入" autocomplete="off" class="layui-input layui-date">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">电话号码</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="telephone" required  lay-verify="phone" placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">电子邮箱</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="email" required  lay-verify="email" placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">QQ</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="qq" required  placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">微信</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="weixin" required  placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">机构</label>
-                    <div class="layui-input-block">
-                        <select name="agency.agencyId">
-                            <option value=""></option>
-                            <option value="0">北京</option>
-                            <option value="1">上海</option>
-                            <option value="2">广州</option>
-                            <option value="3">深圳</option>
-                            <option value="4">杭州</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">描述</label>
-                    <div class="layui-input-block">
-                        <textarea name="description" placeholder="请输入内容" class="layui-textarea"></textarea>
-                    </div>
-                </div>
-                <div class="layui-input-block layui-hide">
-                    <button id="btn_form_add_submit" class="layui-btn" lay-submit lay-filter="form_submit">立即提交</button>
-                    <button id="btn_form_add_reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
-                </div>
-            </form>
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录名</label>
+            <div class="layui-input-block">
+                <input type="text" name="loginName"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="userCaption"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生日</label>
+            <div class="layui-input-block">
+                <input type="text" name="birthday"  lay-verify="date" placeholder="请输入" autocomplete="off" class="layui-input layui-date">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-block">
+                <input type="text" name="telephone"  lay-verify="phone" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电子邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="email"  lay-verify="email" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">QQ</label>
+            <div class="layui-input-block">
+                <input type="text" name="qq" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">微信</label>
+            <div class="layui-input-block">
+                <input type="text" name="weixin" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">机构</label>
+            <div class="layui-input-block">
+                <select name="agency.agencyId">
+                    <option></option>
+                    <option value="1">信息部</option>
+                    <option value="2">科技部</option>
+                    <option value="3">市场部</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <textarea name="description" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-input-block layui-hide">
+            <button id="btn_form_add_submit" class="layui-btn" lay-submit lay-filter="form_submit">立即提交</button>
+            <button id="btn_form_add_reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </form>
+    </div>
+    <div id="form_authc" class="layui-card" style="display: none">
+        <%--<div class="layui-card-header">表单</div>--%>
+        <form class="layui-form layui-card-body" lay-filter="form_authc">
+            <div class="layui-form-item layui-hide">
+                <label class="layui-form-label">ID</label>
+                <div class="layui-input-block">
+                    <input type="text" name="userId" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">登录名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="loginName" readonly autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="userCaption"  readonly autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色</label>
+                <div class="layui-input-block">
+                    <div id="tree_role"></div>
+                </div>
+            </div>
+
+            <div class="layui-input-block layui-hide">
+                <button id="btn_form_authc_submit" class="layui-btn" lay-submit lay-filter="form_submit">立即提交</button>
+                <button id="btn_form_authc_reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </form>
+    </div>
+    <div id="content-user" class="layui-content">
         <div class="layui-row">
             <div class="layui-card">
                 <div class="layui-card-body">
@@ -99,119 +129,235 @@
                             <div class="layui-inline">
                                 <div class="layui-form-mid">用户名:</div>
                                 <div class="layui-input-inline" style="width: 100px;">
-                                  <input type="text" autocomplete="off" class="layui-input">
+                                  <input type="text" name="userCaption" autocomplete="off" class="layui-input">
                                 </div>
-                                <div class="layui-form-mid">邮箱:</div>
+                                <div class="layui-form-mid">电话:</div>
                                 <div class="layui-input-inline" style="width: 100px;">
-                                  <input type="text" autocomplete="off" class="layui-input">
+                                  <input type="text" name="telephone" autocomplete="off" class="layui-input">
                                 </div>
-                                <div class="layui-form-mid">性别:</div>
                                 <button class="layui-btn layui-btn-blue  layui-btn-radius layui-btn-sm">查 询</button>
                                 <button class="layui-btn layui-btn-primary layui-btn-radius layui-btn-sm">重 置</button>
                             </div>
                         </div>
-                        <button id="btn_add" class="layui-btn layui-btn-blue layui-btn-radius layui-btn-sm" lay-filter="add"><i class="layui-icon">&#xe654;</i>新增</button>
-                        <table id="table_user"></table>
+                        <button data-method="tableAdd" class="layui-btn layui-btn-blue layui-btn-radius layui-btn-sm"><i class="layui-icon">&#xe654;</i>新增</button>
+                        <button data-method="tableRemove" class="layui-btn layui-btn-blue layui-btn-radius layui-btn-sm"><i class="layui-icon">&#xe640;</i>删除</button>
+                        <button data-method="authcRole" class="layui-btn layui-btn-blue layui-btn-radius layui-btn-sm"><i class="layui-icon">&#xe672;</i>角色授权</button>
+                        <table id="table_user" class="layui-table" lay-filter="table_user"></table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="<%=request.getContextPath()%>/resources/layui.all.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/asserts/ztree/js/jquery-1.4.4.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/asserts/ztree/js/jquery.ztree.all.min.js"></script>
     <script>
         // layui.use('element','table','from','layer','$','laydate',function(){
         //
         // });
 
-      var element = layui.element;
-      var table = layui.table,
-          form = layui.form,
-          layer = layui.layer,
-          $ = layui.$,
-          laydate = layui.laydate;
+        var element = layui.element;
+        var table = layui.table,
+            form = layui.form,
+            layer = layui.layer,
+            $ = layui.$,
+            laydate = layui.laydate;
 
-      //初始化日期控件
-      laydate.render({
-          elem: '.layui-date' //指定元素
-      });
+        //初始化日期控件
+        laydate.render({
+            elem: '.layui-date' //指定元素
+        });
   
-      //展示已知数据
-      table.render({
-        elem: '#table_user'
-        ,url:'<%=request.getContextPath()%>/user/getPageUser'
-        ,request:{
-              pageName:'pageIndex',
-              limitName:'pageSize'
-        }
-        ,response: {
-          // statusName: 'status' //规定数据状态的字段名称，默认：code
-          statusCode: 200 //规定成功的状态码，默认：0,必须的，不然会异常
-          // ,msgName: 'hint' //规定状态信息的字段名称，默认：msg
-          ,countName: 'totleCount' //规定数据总数的字段名称，默认：count
-          ,dataName: 'records' //规定数据列表的字段名称，默认：data
-        }
-        ,cols: [[ //标题栏
-          {field: 'userId', title: 'ID', width: 80, hide: true}
-          ,{field: 'loginName', title: '登录名', width: 100,sort:true}
-          ,{field: 'userCaption', title: '用户名', minWidth: 120}
-          ,{field: 'birthday', title: '生日', minWidth: 100}
-          ,{field: 'telephone', title: '电话', minWidth: 100}
-          ,{field: 'email', title: '邮箱', width: 120}
-          ,{field: 'qq', title: 'QQ', width: 100}
-          ,{field: 'weixin', title: '微信', width: 100, sort: false}
-        ]]
-        ,skin: 'line' //表格风格
-        ,even: true
-        ,page: true //是否显示分页
-        ,limits: [15, 20, 30]
-        // ,limit: 15 //每页默认显示的数量
-      });
+        //展示已知数据
+        table.render({
+            id:'table_user',
+            elem: '#table_user'
+            ,url:'<%=request.getContextPath()%>/user/getPageUser'
+            ,request:{
+                  pageName:'page:index',
+                  limitName:'page:size'
+            }
+            ,response: {
+              // statusName: 'status' //规定数据状态的字段名称，默认：code
+              statusCode: 200 //规定成功的状态码，默认：0,必须的，不然会异常
+              // ,msgName: 'hint' //规定状态信息的字段名称，默认：msg
+              ,countName: 'totleCount' //规定数据总数的字段名称，默认：count
+              ,dataName: 'records' //规定数据列表的字段名称，默认：data
+            }
+            ,cols: [[ //标题栏
+               {type: 'checkbox', fixed: 'left',align:'center',style:'top:5px;'},
+               {field: 'userId', title: 'ID', width: 80, hide:true}
+              ,{field: 'loginName', title: '登录名', width: 100,sort:true}
+              ,{field: 'userCaption', title: '用户名', minWidth: 120}
+              ,{field: 'birthday', title: '生日', minWidth: 100}
+              ,{field: 'telephone', title: '电话', minWidth: 100}
+              ,{field: 'email', title: '邮箱', width: 120}
+              ,{field: 'qq', title: 'QQ', width: 100}
+              ,{field: 'weixin', title: '微信', width: 100, sort: false}
+            ]]
+            ,skin: 'line' //表格风格
+            ,page: true
+        });
+        table.on('rowDouble(table_user)', function(obj){
+          console.info(obj);
+          showAddForm(function(){
+              $.ajax({
+                  url:'<%=request.getContextPath()%>/user/getUser',
+                  method:'GET',
+                  data:'id='+obj.data.userId,
+                  success:function (res) {
+                      form.val('form_add',res);
+                  }
+              })
+          })
+        });
 
-      //提交按钮监听
-      form.on('submit(form_submit)',function (data) {
-          debugger
+        //提交按钮监听
+        form.on('submit(form_submit)',function (data) {
           $.ajax({
               url:'<%=request.getContextPath()%>/user/saveUser',
               method:'POST',
               data:data.field,
               contentType: "application/x-www-form-urlencoded",
               success:function(res){
-                  layer.alert('提交成功！');
+                  var msg = '提交成功！';
+                  if(res.code =='0000'){
+                    msg = res.msg;
+                  }else{
+                      layer.close($(data.form).data('layer-index'));
+                  }
+                  layer.alert(msg);
+              },
+              failure:function () {
+                  layer.alert('提交失败！',{icon:2});
               }
           })
-      });
-      //form.render(null, 'test1'); // 重置
+        });
 
-      //表单填值
-      // form.val("formTest", { //filtter
-      //     "username": "贤心" // "name": "value"
-      //     ,"sex": "女"
-      //     ,"auth": 3
-      //     ,"check[write]": true
-      //     ,"open": false
-      //     ,"desc": "我爱layui"
-      // })
-
-      //新增
-      $('#btn_add').on('click', function(data){//btn(add)
+        function showAddForm(callback){
           layer.open({
               type:'1',
-              area: '800px',
+              area: ['600px','500px'],
+              shade: 0,
+              fixed:true,
+              skin:'custom-layer-class',
               offset: 'auto',
               title:'新增用户',
               content:$('#form_add'),
               btn:['提交','重置','取消'],
-              yes :function(){
-                  $('#btn_form_add_submit').click();
+              yes :function(index, layero){
+                  layero.find('form')[0].reset()
+                  layero.find('form').data('layer-index',index);
               },
-              btn2:function () {
-                  form.render(null, 'form_add');
+              btn2:function (index, layero) {
+                  // form.render(null, 'form_add');
+                  $('#btn_form_add_reset').click();
+                  return false;
               },
-              btn3:function () {
-
+              btn3:function (index, layero) {
+                  layer.close(index);
+              },
+              success : function(layero, index){
+                  //form.render(null, 'test1'); // 重置
+                  layero.find('form')[0].reset();
+                  $.isFunction(callback) && callback.call(this);
               }
-          })
-      });
+          });
+        }
+        function showAuthcForm(callback){
+            layer.open({
+                type:'1',
+                area: ['600px','500px'],
+                fixed:true,
+                shade: 0,
+                skin:'custom-layer-class',
+                offset: 'auto',
+                title:'角色设置',
+                content:$('#form_authc'),
+                btn:['提交','取消'],
+                yes :function(index, layero){
+                    layero.find('form')[0].reset()
+                    layero.find('form').data('layer-index',index);
+                },
+                btn2:function (index, layero) {
+                    layer.close(index);
+                },
+                success : function(layero, index){
+                    //form.render(null, 'test1'); // 重置
+                    layero.find('form')[0].reset();
+                    $.isFunction(callback) && callback.call(this);
+                }
+            });
+        }
+        //按钮事件
+        var active = {
+            tableAdd:function(){
+                showAddForm();
+            },
+            tableRemove:function(){
+                var userIds = table.checkStatus('table_user').data.map(function(e){return e.userId});
+                if(!userIds || userIds.length==0){layer.alert('请选择一条数据！'); return;}
+                layer.msg('确定删除该条数据？', {
+                    time: 20000, //20s后自动关闭
+                    btn: ['确定', '取消'],
+                    yes:function(index, layero){
+                        $.ajax({
+                            url:'<%=request.getContextPath()%>/user/removeUser',
+                            async:false,
+                            data:'id='+userIds.join(","),//自行处理多行删除
+                            success:function(res){
+                                layer.msg('删除成功！',{offset:'t'});
+                                layer.close(index);
+                                table.reload('table_user');
+                            }
+                        })
+                    }
+                });
+            },
+            authcRole:function () {
+                var userIds = table.checkStatus('table_user').data.map(function(e){return e.userId});
+                if(!userIds || userIds.length==0){layer.alert('请选择一条数据！'); return;}
+                showAuthcForm(function(){
+                    $.ajax({
+                        url:'<%=request.getContextPath()%>/user/getUserAndAllroles',
+                        data:{id:userIds[0]}
+                    }).done(function(trees){
+                        $.get('<%=request.getContextPath()%>/user/getUser',{id:userIds[0]},function(user){
+                            form.val('form_authc',user);
+                        });
+                        var setting = {
+                            check: {
+                                enable: true
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true
+                                }
+                            }
+                        };
+                        var trees =[
+                            { id:1, pId:0, name:"随意勾选 1", open:true},
+                            { id:11, pId:1, name:"随意勾选 1-1"},
+                            { id:12, pId:1, name:"随意勾选 1-2", open:true},
+                            { id:121, pId:12, name:"随意勾选 1-2-1"},
+                            { id:122, pId:12, name:"随意勾选 1-2-2"},
+                            { id:2, pId:0, name:"禁止勾选 2", open:true, doCheck:false},
+                            { id:21, pId:2, name:"禁止勾选 2-1", doCheck:false},
+                            { id:22, pId:2, name:"禁止勾选 2-2", checked:true, open:true, doCheck:false},
+                            { id:221, pId:22, name:"禁止勾选 2-2-1", doCheck:false},
+                            { id:222, pId:22, name:"禁止勾选 2-2-2", checked:true, doCheck:false},
+                            { id:23, pId:2, name:"禁止勾选 2-3", doCheck:false}
+                        ];
+                        jQuery.fn.zTree.init($("#tree_role"), setting, trees);
+                    });
+                });
+            }
+        };
+
+        $('#content-user .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
     </script>
 </body>
 </html>

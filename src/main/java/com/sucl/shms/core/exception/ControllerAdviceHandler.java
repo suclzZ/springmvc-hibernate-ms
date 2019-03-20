@@ -1,5 +1,6 @@
 package com.sucl.shms.core.exception;
 
+import com.sucl.shms.core.message.Message;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,9 +20,10 @@ public class ControllerAdviceHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public String exception(Exception ex){
+    public Message exception(Exception ex){
         ex.printStackTrace();
-        return ex.getMessage();
+        Message message = new Message(ex.getMessage());
+        return message;
     }
 
 }

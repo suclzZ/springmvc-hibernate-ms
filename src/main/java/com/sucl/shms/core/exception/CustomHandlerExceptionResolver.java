@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 自定义异常处理器
  * @author sucl
  * @since 2019/3/19
  */

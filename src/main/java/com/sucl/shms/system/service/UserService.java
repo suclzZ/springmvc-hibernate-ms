@@ -19,6 +19,8 @@ public interface UserService extends BaseService {
 
     User getUser(String id);
 
+    User getInitializeUser(String id,String[] prps);
+
     Pager<User> getPageUser(Pager pager, Collection<Condition> conditions, Collection<Order> orders);
 
     User saveUser(User user);

@@ -92,7 +92,7 @@
             </div>
         </div>
 
-        <div class="layui-body">
+        <div class="layui-body page-container">
              <div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">
                 <ul id="appTabs" class="layui-tab-title custom-tab"></ul>
                 <div id="appTabPage" class="layui-tab-content"></div>
@@ -106,6 +106,11 @@
         <div class="mobile-mask"></div>
     </div>
     <script src="<%=request.getContextPath()%>/resources/layui.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/index.js" data-main="home"></script>
+    <script src="<%=request.getContextPath()%>/resources/index.js" data-main="phome"></script>
+    <%--<script>--%>
+        <%--layui.use([],function(){--%>
+            <%--window.jQuery = window.jQuery || layui.$;--%>
+        <%--})--%>
+    <%--</script>--%>
 </body>
 </html>

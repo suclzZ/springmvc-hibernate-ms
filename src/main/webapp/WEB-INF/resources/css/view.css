@@ -1,3 +1,12 @@
+/* my in tab */
+.layui-layer.layui-layer-page.custom-layer-class{
+    /*background:#c00; color:#fff;*/
+    border: none;
+    /*top: 5px;*/
+    /*bottom: 10px;*/
+}
+/*------------------*/
+
 .layui-view-body{
     background-color: #f0f2f5;
 }

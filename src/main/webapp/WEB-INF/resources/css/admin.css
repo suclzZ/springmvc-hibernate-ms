@@ -3,7 +3,18 @@
  *  Layui link: http://www.layui.com
  *  Custom style author: Bie Jun
 */
-
+/*#my*/
+.layui-layout-admin .layui-body{
+    bottom: 5px !important;
+}
+.layui-layout-admin .layui-side.custom-admin,
+.layui-layout-admin .layui-side.custom-admin .layui-nav-tree{
+    /*width: 200px !important;*/
+}
+.layui-layout-admin .layui-header{
+    background-color: #fff !important;
+}
+/* --------------*/
 
 /*
  * 字体图标
@@ -183,7 +194,7 @@ html, body , .app-container{
 
 .layui-layout-admin .layui-side.custom-admin,
 .layui-layout-admin .layui-side.custom-admin .layui-nav-tree{
-    width: 260px;
+    /*width: 260px;*/
 }
 
 .layui-layout-admin .layui-side.custom-admin .layui-side-scroll{
@@ -193,7 +204,7 @@ html, body , .app-container{
 .layui-body,
 .layui-layout-admin .layui-footer,
 .layui-layout-admin .custom-header .layui-nav.layui-layout-left{
-    left: 260px;
+    /*left: 260px;*/
 }
 
 .layui-layout-admin .layui-side.custom-admin{

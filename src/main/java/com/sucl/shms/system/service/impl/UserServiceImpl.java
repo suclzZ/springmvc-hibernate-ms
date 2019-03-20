@@ -6,8 +6,10 @@ import com.sucl.shms.core.orm.Order;
 import com.sucl.shms.core.orm.Pager;
 import com.sucl.shms.core.service.impl.BaseServiceImpl;
 import com.sucl.shms.system.dao.UserDao;
+import com.sucl.shms.system.entity.Agency;
 import com.sucl.shms.system.entity.User;
 import com.sucl.shms.system.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,12 +38,24 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
     }
 
     @Override
+    public User getInitializeUser(String id, String[] prps) {
+        return userDao.getInitializeObject(id,prps);
+    }
+
+    @Override
     public Pager<User> getPageUser(Pager pager, Collection<Condition> conditions, Collection<Order> orders) {
         return userDao.getPager(pager,conditions,orders);
     }
 
     @Override
     public User saveUser(User user) {
+        boolean update = StringUtils.isNotEmpty(user.getUserId());
+        Agency agency = user.getAgency();
+        if(agency!=null && StringUtils.isNotEmpty(agency.getAgencyId())){
+            //进一步校验是否存在的机构
+        }else{
+            user.setAgency(null);
+        }
         return userDao.save(user);
     }
 

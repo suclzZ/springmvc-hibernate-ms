@@ -3,10 +3,12 @@ package com.sucl.shms.system.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sucl.shms.core.orm.Domain;
 import lombok.Data;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author sucl
@@ -26,10 +28,10 @@ public class User implements Domain {
     private String userId;
 
     @JoinColumn(name = "AGENCY_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Agency agency;
 
-    @ManyToMany(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     @JoinTable (//被维护方可以不要此注解
             name = "USER_ROLE" , //关联表名
             joinColumns = @JoinColumn (name = "USER_ID" ),//维护方
@@ -62,4 +64,16 @@ public class User implements Domain {
 
     @Column(name = "DESCRIPTION",columnDefinition="varchar(256)")
     private String description;
+
+    @Transient
+    private Set<String> roleIds;
+
+    public Set<String> getRoleIds() {
+        if(CollectionUtils.isNotEmpty(roles)){
+            return roles.stream().map(e->{return e.getRoleId();}).collect(Collectors.toSet());
+        }
+        return roleIds;
+    }
+
+
 }
