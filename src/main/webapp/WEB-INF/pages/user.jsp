@@ -155,7 +155,6 @@
     <script src="<%=request.getContextPath()%>/resources/asserts/ztree/js/jquery.ztree.all.min.js"></script>
     <script>
         layui.use(['element','table','form','layer','component','laydate'],function(){
-            console.info(layui.component);
             var element = layui.element;
             var table = layui.table,
                 form = layui.form,
@@ -346,8 +345,6 @@
                 active[method] ? active[method].call(this, othis) : '';
             });
         });
-
-
     </script>
 </body>
 </html>
