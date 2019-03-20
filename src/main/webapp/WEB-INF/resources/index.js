@@ -12,7 +12,8 @@
         // {/}home 的意思即代表采用自有路径，即不跟随 base 路径
         app = {
             home : 'home',
-            login : 'login'
+            login : 'login',
+            phome:'phome'
         };
 
     (function(){

@@ -49,12 +49,15 @@ layui.define(['element','layer','laydate'],function(exports){
                 });
             }
 
-            // ele.siblings('li.layui-nav-item').removeClass('layui-nav-itemed');
-            ele.addClass('layui-nav-itemed')
+            // if(ele.hasClass('layui-nav-itemed')){
+            //     ele.removeClass('layui-nav-itemed')
+            // }else{
+            //     ele.addClass('layui-nav-itemed').siblings('li.layui-nav-item').removeClass('layui-nav-itemed');
+            // }
         });
 
         // 默认触发第一个子菜单的点击事件
-        // $('#Nav li.layui-nav-item:eq(0) > dl.layui-nav-child > dd > a:eq(0)').trigger('click');
+        $('#Nav li.layui-nav-item:eq(0) > dl.layui-nav-child > dd > a:eq(0)').trigger('click');
 
         this.slideSideBar();
     }

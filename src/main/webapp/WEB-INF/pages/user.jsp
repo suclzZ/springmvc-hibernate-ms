@@ -110,7 +110,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">角色</label>
                 <div class="layui-input-block">
-                    <div id="tree_role"></div>
+                    <div id="tree_role" class="ztree"></div>
                 </div>
             </div>
 
@@ -128,20 +128,22 @@
                         <div class="layui-form layui-form-item">
                             <div class="layui-inline">
                                 <div class="layui-form-mid">用户名:</div>
-                                <div class="layui-input-inline" style="width: 100px;">
+                                <div class="layui-input-inline" style="width: 200px;">
                                   <input type="text" name="userCaption" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-form-mid">电话:</div>
-                                <div class="layui-input-inline" style="width: 100px;">
+                                <div class="layui-input-inline" style="width: 200px;">
                                   <input type="text" name="telephone" autocomplete="off" class="layui-input">
                                 </div>
                                 <button class="layui-btn layui-btn-blue  layui-btn-radius layui-btn-sm">查 询</button>
                                 <button class="layui-btn layui-btn-primary layui-btn-radius layui-btn-sm">重 置</button>
                             </div>
                         </div>
+                        <div class="layui-btn-container layui-col-md-offset9">
                         <button data-method="tableAdd" class="layui-btn layui-btn-blue layui-btn-radius layui-btn-sm"><i class="layui-icon">&#xe654;</i>新增</button>
                         <button data-method="tableRemove" class="layui-btn layui-btn-blue layui-btn-radius layui-btn-sm"><i class="layui-icon">&#xe640;</i>删除</button>
                         <button data-method="authcRole" class="layui-btn layui-btn-blue layui-btn-radius layui-btn-sm"><i class="layui-icon">&#xe672;</i>角色授权</button>
+                        </div>
                         <table id="table_user" class="layui-table" lay-filter="table_user"></table>
                     </div>
                 </div>
@@ -335,19 +337,6 @@
                                 }
                             }
                         };
-                        var trees =[
-                            { id:1, pId:0, name:"随意勾选 1", open:true},
-                            { id:11, pId:1, name:"随意勾选 1-1"},
-                            { id:12, pId:1, name:"随意勾选 1-2", open:true},
-                            { id:121, pId:12, name:"随意勾选 1-2-1"},
-                            { id:122, pId:12, name:"随意勾选 1-2-2"},
-                            { id:2, pId:0, name:"禁止勾选 2", open:true, doCheck:false},
-                            { id:21, pId:2, name:"禁止勾选 2-1", doCheck:false},
-                            { id:22, pId:2, name:"禁止勾选 2-2", checked:true, open:true, doCheck:false},
-                            { id:221, pId:22, name:"禁止勾选 2-2-1", doCheck:false},
-                            { id:222, pId:22, name:"禁止勾选 2-2-2", checked:true, doCheck:false},
-                            { id:23, pId:2, name:"禁止勾选 2-3", doCheck:false}
-                        ];
                         jQuery.fn.zTree.init($("#tree_role"), setting, trees);
                     });
                 });

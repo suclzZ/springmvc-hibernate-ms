@@ -7,6 +7,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class User implements Domain {
             name = "USER_ROLE" , //关联表名
             joinColumns = @JoinColumn (name = "USER_ID" ),//维护方
             inverseJoinColumns = @JoinColumn (name = "ROLE_ID" ))//被维护方
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @Column(name = "LOGIN_NAME",length = 56)
     private String loginName;
