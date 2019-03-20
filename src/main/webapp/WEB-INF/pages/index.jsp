@@ -107,10 +107,5 @@
     </div>
     <script src="<%=request.getContextPath()%>/resources/layui.js"></script>
     <script src="<%=request.getContextPath()%>/resources/index.js" data-main="phome"></script>
-    <%--<script>--%>
-        <%--layui.use([],function(){--%>
-            <%--window.jQuery = window.jQuery || layui.$;--%>
-        <%--})--%>
-    <%--</script>--%>
 </body>
 </html>

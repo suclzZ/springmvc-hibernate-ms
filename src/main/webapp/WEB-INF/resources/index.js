@@ -13,7 +13,8 @@
         app = {
             home : 'home',
             login : 'login',
-            phome:'phome'
+            phome:'phome',
+            component:'component'
         };
 
     (function(){
@@ -33,5 +34,4 @@
     layui.config({
         base: '/ms/resources/lay/modules/'
     }).extend(app).use(entry || 'home');
-
 })();

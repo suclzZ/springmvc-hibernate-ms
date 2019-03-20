@@ -150,203 +150,204 @@
             </div>
         </div>
     </div>
-    <script src="<%=request.getContextPath()%>/resources/layui.all.js"></script>
+    <%--<script src="<%=request.getContextPath()%>/resources/layui.js"></script>--%>
     <script src="<%=request.getContextPath()%>/resources/asserts/ztree/js/jquery-1.4.4.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/asserts/ztree/js/jquery.ztree.all.min.js"></script>
     <script>
-        // layui.use('element','table','from','layer','$','laydate',function(){
-        //
-        // });
+        layui.use(['element','table','form','layer','component','laydate'],function(){
+            console.info(layui.component);
+            var element = layui.element;
+            var table = layui.table,
+                form = layui.form,
+                layer = layui.layer,
+                $ = layui.$,
+                laydate = layui.laydate;
 
-        var element = layui.element;
-        var table = layui.table,
-            form = layui.form,
-            layer = layui.layer,
-            $ = layui.$,
-            laydate = layui.laydate;
-
-        //初始化日期控件
-        laydate.render({
-            elem: '.layui-date' //指定元素
-        });
-  
-        //展示已知数据
-        table.render({
-            id:'table_user',
-            elem: '#table_user'
-            ,url:'<%=request.getContextPath()%>/user/getPageUser'
-            ,request:{
-                  pageName:'page:index',
-                  limitName:'page:size'
-            }
-            ,response: {
-              // statusName: 'status' //规定数据状态的字段名称，默认：code
-              statusCode: 200 //规定成功的状态码，默认：0,必须的，不然会异常
-              // ,msgName: 'hint' //规定状态信息的字段名称，默认：msg
-              ,countName: 'totleCount' //规定数据总数的字段名称，默认：count
-              ,dataName: 'records' //规定数据列表的字段名称，默认：data
-            }
-            ,cols: [[ //标题栏
-               {type: 'checkbox', fixed: 'left',align:'center',style:'top:5px;'},
-               {field: 'userId', title: 'ID', width: 80, hide:true}
-              ,{field: 'loginName', title: '登录名', width: 100,sort:true}
-              ,{field: 'userCaption', title: '用户名', minWidth: 120}
-              ,{field: 'birthday', title: '生日', minWidth: 100}
-              ,{field: 'telephone', title: '电话', minWidth: 100}
-              ,{field: 'email', title: '邮箱', width: 120}
-              ,{field: 'qq', title: 'QQ', width: 100}
-              ,{field: 'weixin', title: '微信', width: 100, sort: false}
-            ]]
-            ,skin: 'line' //表格风格
-            ,page: true
-        });
-        table.on('rowDouble(table_user)', function(obj){
-          console.info(obj);
-          showAddForm(function(){
-              $.ajax({
-                  url:'<%=request.getContextPath()%>/user/getUser',
-                  method:'GET',
-                  data:'id='+obj.data.userId,
-                  success:function (res) {
-                      form.val('form_add',res);
-                  }
-              })
-          })
-        });
-
-        //提交按钮监听
-        form.on('submit(form_submit)',function (data) {
-          $.ajax({
-              url:'<%=request.getContextPath()%>/user/saveUser',
-              method:'POST',
-              data:data.field,
-              contentType: "application/x-www-form-urlencoded",
-              success:function(res){
-                  var msg = '提交成功！';
-                  if(res.code =='0000'){
-                    msg = res.msg;
-                  }else{
-                      layer.close($(data.form).data('layer-index'));
-                  }
-                  layer.alert(msg);
-              },
-              failure:function () {
-                  layer.alert('提交失败！',{icon:2});
-              }
-          })
-        });
-
-        function showAddForm(callback){
-          layer.open({
-              type:'1',
-              area: ['600px','500px'],
-              shade: 0,
-              fixed:true,
-              skin:'custom-layer-class',
-              offset: 'auto',
-              title:'新增用户',
-              content:$('#form_add'),
-              btn:['提交','重置','取消'],
-              yes :function(index, layero){
-                  layero.find('form')[0].reset()
-                  layero.find('form').data('layer-index',index);
-              },
-              btn2:function (index, layero) {
-                  // form.render(null, 'form_add');
-                  $('#btn_form_add_reset').click();
-                  return false;
-              },
-              btn3:function (index, layero) {
-                  layer.close(index);
-              },
-              success : function(layero, index){
-                  //form.render(null, 'test1'); // 重置
-                  layero.find('form')[0].reset();
-                  $.isFunction(callback) && callback.call(this);
-              }
-          });
-        }
-        function showAuthcForm(callback){
-            layer.open({
-                type:'1',
-                area: ['600px','500px'],
-                fixed:true,
-                shade: 0,
-                skin:'custom-layer-class',
-                offset: 'auto',
-                title:'角色设置',
-                content:$('#form_authc'),
-                btn:['提交','取消'],
-                yes :function(index, layero){
-                    layero.find('form')[0].reset()
-                    layero.find('form').data('layer-index',index);
-                },
-                btn2:function (index, layero) {
-                    layer.close(index);
-                },
-                success : function(layero, index){
-                    //form.render(null, 'test1'); // 重置
-                    layero.find('form')[0].reset();
-                    $.isFunction(callback) && callback.call(this);
-                }
+            //初始化日期控件
+            laydate.render({
+                elem: '.layui-date' //指定元素
             });
-        }
-        //按钮事件
-        var active = {
-            tableAdd:function(){
-                showAddForm();
-            },
-            tableRemove:function(){
-                var userIds = table.checkStatus('table_user').data.map(function(e){return e.userId});
-                if(!userIds || userIds.length==0){layer.alert('请选择一条数据！'); return;}
-                layer.msg('确定删除该条数据？', {
-                    time: 20000, //20s后自动关闭
-                    btn: ['确定', '取消'],
-                    yes:function(index, layero){
-                        $.ajax({
-                            url:'<%=request.getContextPath()%>/user/removeUser',
-                            async:false,
-                            data:'id='+userIds.join(","),//自行处理多行删除
-                            success:function(res){
-                                layer.msg('删除成功！',{offset:'t'});
-                                layer.close(index);
-                                table.reload('table_user');
-                            }
-                        })
+
+            //展示已知数据
+            table.render({
+                id:'table_user',
+                elem: '#table_user'
+                ,url:'<%=request.getContextPath()%>/user/getPageUser'
+                ,request:{
+                    pageName:'page:index',
+                    limitName:'page:size'
+                }
+                ,response: {
+                    // statusName: 'status' //规定数据状态的字段名称，默认：code
+                    statusCode: 200 //规定成功的状态码，默认：0,必须的，不然会异常
+                    // ,msgName: 'hint' //规定状态信息的字段名称，默认：msg
+                    ,countName: 'totleCount' //规定数据总数的字段名称，默认：count
+                    ,dataName: 'records' //规定数据列表的字段名称，默认：data
+                }
+                ,cols: [[ //标题栏
+                    {type: 'checkbox', fixed: 'left',align:'center',style:'top:5px;'},
+                    {field: 'userId', title: 'ID', width: 80, hide:true}
+                    ,{field: 'loginName', title: '登录名', width: 100,sort:true}
+                    ,{field: 'userCaption', title: '用户名', minWidth: 120}
+                    ,{field: 'birthday', title: '生日', minWidth: 100}
+                    ,{field: 'telephone', title: '电话', minWidth: 100}
+                    ,{field: 'email', title: '邮箱', width: 120}
+                    ,{field: 'qq', title: 'QQ', width: 100}
+                    ,{field: 'weixin', title: '微信', width: 100, sort: false}
+                ]]
+                ,skin: 'line' //表格风格
+                ,page: true
+            });
+            table.on('rowDouble(table_user)', function(obj){
+                console.info(obj);
+                showAddForm(function(){
+                    $.ajax({
+                        url:'<%=request.getContextPath()%>/user/getUser',
+                        method:'GET',
+                        data:'id='+obj.data.userId,
+                        success:function (res) {
+                            form.val('form_add',res);
+                        }
+                    })
+                })
+            });
+
+            //提交按钮监听
+            form.on('submit(form_submit)',function (data) {
+                $.ajax({
+                    url:'<%=request.getContextPath()%>/user/saveUser',
+                    method:'POST',
+                    data:data.field,
+                    contentType: "application/x-www-form-urlencoded",
+                    success:function(res){
+                        var msg = '提交成功！';
+                        if(res.code =='0000'){
+                            msg = res.msg;
+                        }else{
+                            layer.close($(data.form).data('layer-index'));
+                        }
+                        layer.alert(msg);
+                    },
+                    failure:function () {
+                        layer.alert('提交失败！',{icon:2});
+                    }
+                })
+            });
+
+            function showAddForm(callback){
+                layer.open({
+                    type:'1',
+                    area: ['600px','500px'],
+                    shade: 0,
+                    fixed:true,
+                    skin:'custom-layer-class',
+                    offset: 'auto',
+                    title:'新增用户',
+                    content:$('#form_add'),
+                    btn:['提交','重置','取消'],
+                    yes :function(index, layero){
+                        layero.find('form')[0].reset()
+                        layero.find('form').data('layer-index',index);
+                    },
+                    btn2:function (index, layero) {
+                        // form.render(null, 'form_add');
+                        $('#btn_form_add_reset').click();
+                        return false;
+                    },
+                    btn3:function (index, layero) {
+                        layer.close(index);
+                    },
+                    success : function(layero, index){
+                        //form.render(null, 'test1'); // 重置
+                        layero.find('form')[0].reset();
+                        $.isFunction(callback) && callback.call(this);
                     }
                 });
-            },
-            authcRole:function () {
-                var userIds = table.checkStatus('table_user').data.map(function(e){return e.userId});
-                if(!userIds || userIds.length==0){layer.alert('请选择一条数据！'); return;}
-                showAuthcForm(function(){
-                    $.ajax({
-                        url:'<%=request.getContextPath()%>/user/getUserAndAllroles',
-                        data:{id:userIds[0]}
-                    }).done(function(trees){
-                        $.get('<%=request.getContextPath()%>/user/getUser',{id:userIds[0]},function(user){
-                            form.val('form_authc',user);
-                        });
-                        var setting = {
-                            check: {
-                                enable: true
-                            },
-                            data: {
-                                simpleData: {
-                                    enable: true
-                                }
-                            }
-                        };
-                        jQuery.fn.zTree.init($("#tree_role"), setting, trees);
-                    });
+            }
+            function showAuthcForm(callback){
+                layer.open({
+                    type:'1',
+                    area: ['600px','500px'],
+                    fixed:true,
+                    shade: 0,
+                    skin:'custom-layer-class',
+                    offset: 'auto',
+                    title:'角色设置',
+                    content:$('#form_authc'),
+                    btn:['提交','取消'],
+                    yes :function(index, layero){
+                        layero.find('form')[0].reset()
+                        layero.find('form').data('layer-index',index);
+                    },
+                    btn2:function (index, layero) {
+                        layer.close(index);
+                    },
+                    success : function(layero, index){
+                        //form.render(null, 'test1'); // 重置
+                        layero.find('form')[0].reset();
+                        $.isFunction(callback) && callback.call(this);
+                    }
                 });
             }
-        };
+            //按钮事件
+            var active = {
+                tableAdd:function(){
+                    showAddForm();
+                },
+                tableRemove:function(){
+                    var userIds = table.checkStatus('table_user').data.map(function(e){return e.userId});
+                    if(!userIds || userIds.length==0){layer.alert('请选择一条数据！'); return;}
+                    layer.msg('确定删除该条数据？', {
+                        time: 20000, //20s后自动关闭
+                        btn: ['确定', '取消'],
+                        yes:function(index, layero){
+                            $.ajax({
+                                url:'<%=request.getContextPath()%>/user/removeUser',
+                                async:false,
+                                data:'id='+userIds.join(","),//自行处理多行删除
+                                success:function(res){
+                                    layer.msg('删除成功！',{offset:'t'});
+                                    layer.close(index);
+                                    table.reload('table_user');
+                                }
+                            })
+                        }
+                    });
+                },
+                authcRole:function () {
+                    var userIds = table.checkStatus('table_user').data.map(function(e){return e.userId});
+                    if(!userIds || userIds.length==0){layer.alert('请选择一条数据！'); return;}
+                    showAuthcForm(function(){
+                        $.ajax({
+                            url:'<%=request.getContextPath()%>/user/getUserAndAllroles',
+                            data:{id:userIds[0]}
+                        }).done(function(trees){
+                            $.get('<%=request.getContextPath()%>/user/getUser',{id:userIds[0]},function(user){
+                                form.val('form_authc',user);
+                            });
+                            var setting = {
+                                check: {
+                                    enable: true
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true
+                                    }
+                                }
+                            };
+                            jQuery.fn.zTree.init($("#tree_role"), setting, trees);
+                        });
+                    });
+                }
+            };
 
-        $('#content-user .layui-btn').on('click', function(){
-            var othis = $(this), method = othis.data('method');
-            active[method] ? active[method].call(this, othis) : '';
+            $('#content-user .layui-btn').on('click', function(){
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
         });
+
+
     </script>
 </body>
 </html>
