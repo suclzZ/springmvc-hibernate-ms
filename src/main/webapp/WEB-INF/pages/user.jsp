@@ -107,6 +107,12 @@
                     <input type="text" name="userCaption"  readonly autocomplete="off" class="layui-input">
                 </div>
             </div>
+            <div class="layui-form-item layui-hide">
+                <label class="layui-form-label">已选角色</label>
+                <div class="layui-input-block">
+                    <input type="text" name="roles" autocomplete="off" class="layui-input">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">角色</label>
                 <div class="layui-input-block">
@@ -115,7 +121,7 @@
             </div>
 
             <div class="layui-input-block layui-hide">
-                <button id="btn_form_authc_submit" class="layui-btn" lay-submit lay-filter="form_submit">立即提交</button>
+                <button id="btn_form_authc_submit" class="layui-btn" lay-submit lay-filter="form_authc_submit">立即提交</button>
                 <button id="btn_form_authc_reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </form>
@@ -160,7 +166,8 @@
                 form = layui.form,
                 layer = layui.layer,
                 $ = layui.$,
-                laydate = layui.laydate;
+                laydate = layui.laydate,
+                component = layui.component;
 
             //初始化日期控件
             laydate.render({
@@ -184,7 +191,7 @@
                     ,dataName: 'records' //规定数据列表的字段名称，默认：data
                 }
                 ,cols: [[ //标题栏
-                    {type: 'checkbox', fixed: 'left',align:'center',style:'top:5px;'},
+                    {type: 'checkbox', fixed: 'left',align:'center'},
                     {field: 'userId', title: 'ID', width: 80, hide:true}
                     ,{field: 'loginName', title: '登录名', width: 100,sort:true}
                     ,{field: 'userCaption', title: '用户名', minWidth: 120}
@@ -198,17 +205,30 @@
                 ,page: true
             });
             table.on('rowDouble(table_user)', function(obj){
-                console.info(obj);
                 showAddForm(function(){
                     $.ajax({
                         url:'<%=request.getContextPath()%>/user/getUser',
                         method:'GET',
                         data:'id='+obj.data.userId,
                         success:function (res) {
-                            form.val('form_add',res);
+                            form.val('form_add',component.objConvert(res));
                         }
                     })
                 })
+            });
+            table.on('row(table_user)', function(obj){
+                //选中无效
+                // if(!$(this).parents('.layui-table-body').hasClass('layui-table-main')){
+                //     return;
+                // }
+                // var trs = obj.tr;
+                // var tr = trs[0],ck = trs[1];
+                // var ckInput  = $(ck).find("input[type='checkbox']");
+                // if(ckInput.is(':checked')){
+                //     ckInput.attr("checked",false).next().removeClass('layui-form-checked');
+                // }else{
+                //     ckInput.attr("checked", 'checked').next().addClass('layui-form-checked');
+                // }
             });
 
             //提交按钮监听
@@ -232,6 +252,12 @@
                     }
                 })
             });
+            //授权
+            form.on('submit(form_authc_submit)',function (data) {
+                //用户id ,角色(roles[0].rileId ....)
+                //最好通过user实体自动处理，但是千万注意，用户此时的信息只有id,调用update用户的其他信息将会覆盖为null
+
+            })
 
             function showAddForm(callback){
                 layer.open({

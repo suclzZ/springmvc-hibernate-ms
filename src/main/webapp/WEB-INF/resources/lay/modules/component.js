@@ -1,4 +1,5 @@
 layui.define(['element','layer','laydate'],function(exports){
+    var $ = layui.$;
     var Component = function(){
 
     }
@@ -8,17 +9,18 @@ layui.define(['element','layer','laydate'],function(exports){
     }
 
     Component.prototype.objConvert = function(obj){
-        var elem = {};
-        if(obj && layer.$.type(obj) == 'object'){
-            reBuildObj(obj);
+        if(obj && $.type(obj) == 'object'){
+            return reBuildObj(obj);
         }
+        return obj
     }
 
     function reBuildObj(obj,prefix){
         var elem = {},prefix = prefix||'';
-        if(layer.$.type(obj) == 'object'){
+        if($.type(obj) == 'object'){
             for(var p in obj){
-                var _elem = reCatch(obj[p],prefix+'.'+p);
+                var _elem = reBuildObj(obj[p],prefix+'.'+p);
+                $.extend(elem,_elem);
             }
         }else{
             prefix && (elem[prefix.substring(prefix.indexOf('.')+1)]=obj)
