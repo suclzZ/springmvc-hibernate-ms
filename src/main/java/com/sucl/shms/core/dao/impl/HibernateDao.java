@@ -230,8 +230,8 @@ public abstract class HibernateDao<T,PK extends Serializable> implements Dao<T,P
     private void initializeObjectCollection(T initializeObject, String prop) {
         try {
             if(StringUtils.isNotEmpty(prop)){
-                PropertyUtils.getProperty(initializeObject,prop);
-                Hibernate.initialize(initializeObject);
+                Object obj = PropertyUtils.getProperty(initializeObject,prop);
+                Hibernate.initialize(obj);
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
